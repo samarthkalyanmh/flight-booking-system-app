@@ -12,6 +12,7 @@ class RescheduleService {
     
     // Start a transaction
     const transaction = await sequelize.transaction();
+    let isRolledBack = false;
     
     try {
       // Check if booking exists and belongs to the user
@@ -31,6 +32,7 @@ class RescheduleService {
       
       if (!booking) {
         await transaction.rollback();
+        isRolledBack = true;
         throw new AppError(
           'Booking not found or does not belong to the user',
           404,
@@ -41,6 +43,7 @@ class RescheduleService {
       // Check if booking is not already cancelled
       if (booking.status === 'cancelled') {
         await transaction.rollback();
+        isRolledBack = true;
         throw new AppError(
           'Cannot reschedule a cancelled booking',
           400,
@@ -53,6 +56,7 @@ class RescheduleService {
       
       if (!requestedFlight) {
         await transaction.rollback();
+        isRolledBack = true;
         throw new AppError(
           'Requested flight not found',
           404,
@@ -71,6 +75,7 @@ class RescheduleService {
       
       if (existingRequest) {
         await transaction.rollback();
+        isRolledBack = true;
         throw new AppError(
           'There is already a pending reschedule request for this booking',
           400,
@@ -176,7 +181,7 @@ class RescheduleService {
       };
     } catch (error) {
       // Rollback transaction in case of error
-      if (transaction && transaction.finished !== 'commit') {
+      if (!isRolledBack) {
         await transaction.rollback();
       }
       
@@ -224,6 +229,7 @@ class RescheduleService {
       for (const request of pendingRequests) {
         // Start a transaction for each request
         const transaction = await sequelize.transaction();
+        let isRolledBack = false;
         
         try {
           // Check if the requested seat is available
@@ -307,7 +313,7 @@ class RescheduleService {
           await transaction.commit();
         } catch (error) {
           // Rollback transaction in case of error
-          if (transaction && transaction.finished !== 'commit') {
+          if (!isRolledBack) {
             await transaction.rollback();
           }
           console.error(`Error processing reschedule request ${request.id}:`, error);
@@ -383,6 +389,7 @@ class RescheduleService {
   async cancelRescheduleRequest(requestId, userId) {
     // Start a transaction
     const transaction = await sequelize.transaction();
+    let isRolledBack = false;
     
     try {
       // Find reschedule request
@@ -396,6 +403,7 @@ class RescheduleService {
       
       if (!request) {
         await transaction.rollback();
+        isRolledBack = true;
         throw new AppError(
           'Reschedule request not found or does not belong to the user',
           404,
@@ -406,6 +414,7 @@ class RescheduleService {
       // Check if request is already processed
       if (request.status !== 'pending') {
         await transaction.rollback();
+        isRolledBack = true;
         throw new AppError(
           `Cannot cancel a reschedule request with status: ${request.status}`,
           400,
@@ -423,7 +432,7 @@ class RescheduleService {
       return request;
     } catch (error) {
       // Rollback transaction in case of error
-      if (transaction && transaction.finished !== 'commit') {
+      if (isRolledBack) {
         await transaction.rollback();
       }
       

@@ -29,7 +29,6 @@ const errorHandler = (err, req, res, next) => {
     type = AppError.TYPES.AUTHENTICATION_ERROR;
   }
   
-  // Send error response
   res.status(statusCode).json({
     success: false,
     message,

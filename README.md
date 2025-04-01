@@ -133,7 +133,8 @@ Middlewares handle cross-cutting concerns.
 
 3. Build and start the containers:
    ```
-   docker-compose up --build
+   docker-compose up --build   
+   docker-compose down
    ```
 
 4. The API will be available at `http://localhost:3000`

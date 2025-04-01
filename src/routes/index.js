@@ -6,7 +6,7 @@ const rescheduleRoutes = require('./reschedule.routes');
 
 const router = express.Router();
 
-// Mount routes
+// Routes
 router.use('/api', authRoutes);
 router.use('/api/flights', flightRoutes);
 router.use('/api', bookingRoutes);

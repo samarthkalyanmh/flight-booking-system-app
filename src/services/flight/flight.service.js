@@ -8,6 +8,8 @@ const { validateFlightData } = require('../../utils/validators');
 class FlightService {
 
   async getFlights(filters = {}) {
+    // filters = {}
+    console.log('HEREEEEEEEEEEEE', filters)
     const { source, destination, date, airline } = filters;
     
     // Build filter object
@@ -42,7 +44,8 @@ class FlightService {
     filter.status = { [Op.ne]: 'cancelled' };
     
     // Try to get from cache first
-    const cacheKey = `flights:${JSON.stringify(filter)}`;
+    // const cacheKey = `flights:${JSON.stringify(filter)}`;
+    const cacheKey = `flights:${JSON.stringify(filters)}`;
     const cachedFlights = await redisClient.get(cacheKey);
     
     if (cachedFlights) {
@@ -138,9 +141,6 @@ class FlightService {
           );
         }
       }
-      
-      await flight.update(flightData);
-      
       await this.clearFlightCache();
       
       return flight;

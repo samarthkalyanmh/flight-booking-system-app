@@ -24,8 +24,8 @@ services:
       - RABBITMQ_URL=amqp://guest:guest@rabbitmq:5672
       - EMAIL_HOST=smtp.gmail.com
       - EMAIL_PORT=587
-      - EMAIL_USER=mail@gmail.com
-      - EMAIL_PASS=your_pass
+      - EMAIL_USER=samarthkalyanmh777@gmail.com
+      - EMAIL_PASS=
       - NODE_ENV=development
     volumes:
       - ./:/usr/src/app

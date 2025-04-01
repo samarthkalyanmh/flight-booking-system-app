@@ -22,6 +22,7 @@ class BookingService {
     
     // Start a transaction
     const transaction = await sequelize.transaction();
+    let isRolledBack = false;
     
     try {
       // Check if flight exists
@@ -39,6 +40,7 @@ class BookingService {
       // Check if flight has available seats
       if (flight.availableSeats <= 0) {
         await transaction.rollback();
+        isRolledBack = true;
         throw new AppError(
           'No available seats on this flight',
           400,
@@ -58,8 +60,10 @@ class BookingService {
         transaction
       });
       
+      console.log('EEEEEEEEEEEEEEEEEE', existingBooking)
       if (existingBooking) {
         await transaction.rollback();
+        isRolledBack = true;
         throw new AppError(
           'This seat is already booked',
           400,
@@ -92,7 +96,8 @@ class BookingService {
       return booking;
     } catch (error) {
       // Rollback transaction in case of error
-      if (transaction && transaction.finished !== 'commit') {
+
+      if (!isRolledBack) {
         await transaction.rollback();
       }
       
@@ -154,6 +159,8 @@ class BookingService {
 
 
   async getUserBookingById(bookingId, userId) {
+
+    console.log('BUUUUU', bookingId, userId)
     if (!bookingId || !userId) {
       throw new AppError(
         'Booking ID and User ID are required',
@@ -198,6 +205,7 @@ class BookingService {
     
     // Start a transaction
     const transaction = await sequelize.transaction();
+    let isRolledBack = false;
     
     try {
       // Find booking
@@ -217,6 +225,7 @@ class BookingService {
       
       if (!booking) {
         await transaction.rollback();
+        isRolledBack = true;
         throw new AppError(
           'Booking not found',
           404,
@@ -227,6 +236,7 @@ class BookingService {
       // Check if booking is already cancelled
       if (booking.status === 'cancelled') {
         await transaction.rollback();
+        isRolledBack = true;
         throw new AppError(
           'Booking is already cancelled',
           400,
@@ -251,7 +261,7 @@ class BookingService {
       return booking;
     } catch (error) {
       // Rollback transaction in case of error
-      if (transaction && transaction.finished !== 'commit') {
+      if (!isRolledBack) {
         await transaction.rollback();
       }
       

@@ -4,7 +4,7 @@ const { authenticate, authorize } = require('../middlewares/auth.middleware');
 
 const router = express.Router();
 
-// Protected routes (user)
+// User Routes
 router.post('/bookings', authenticate, bookingController.bookFlight);
 router.get('/bookings/:id', authenticate, bookingController.getBooking);
 router.post('/bookings/:id/cancel', authenticate, bookingController.cancelBooking);

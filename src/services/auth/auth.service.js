@@ -3,7 +3,6 @@ const { generateToken } = require('../../config/jwt');
 const AppError = require('../../utils/AppError');
 const { validateUserRegistration } = require('../../utils/validators');
 
-// Contains business logic for user authentication
 class AuthService {
 
   async register(userData) {
@@ -28,7 +27,7 @@ class AuthService {
       name,
       email,
       password,
-      role: role === 'admin' ? 'admin' : 'user' // Only allow admin role if explicitly specified
+      role: role === 'admin' ? 'admin' : 'user' // Only allow admin role if specified
     });
 
     // Generate token

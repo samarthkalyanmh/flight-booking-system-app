@@ -6,7 +6,6 @@ const router = express.Router();
 
 router.post('/', authenticate, rescheduleController.createRescheduleRequest);
 
-console.log('KKKKK', rescheduleController.createRescheduleRequest)
 
 router.get('/', authenticate, rescheduleController.getUserRescheduleRequests);
 
@@ -18,7 +17,6 @@ router.get('/admin', authenticate, authorize(['admin']), rescheduleController.ge
 router.post('/:id/cancel', authenticate, rescheduleController.cancelRescheduleRequest);
 
 // Check for available seats for pending reschedule requests
-
 router.post('/check-pending', authenticate, authorize(['admin']), rescheduleController.checkPendingRescheduleRequests);
 
 module.exports = router;

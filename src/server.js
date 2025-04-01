@@ -75,12 +75,12 @@ const initializeServices = async () => {
 
 /**
  * Set up scheduled job to check for pending reschedule requests
- * This will run every 5 minutes
+ * Every 5 minutes
  */
 const setupRescheduleChecker = () => {
   console.log('Setting up scheduled job to check for pending reschedule requests');
   
-  // Check immediately on startup
+  // Check immediately on servar start
   rescheduleService.checkPendingRescheduleRequests()
     .then(count => {
       console.log(`Initial check: Processed ${count} pending reschedule requests`);
@@ -89,7 +89,7 @@ const setupRescheduleChecker = () => {
       console.error('Error checking pending reschedule requests:', error);
     });
   
-  // Then check every 5 minutes
+  // Every 5 minutes
   setInterval(() => {
     rescheduleService.checkPendingRescheduleRequests()
       .then(count => {
@@ -106,5 +106,4 @@ const setupRescheduleChecker = () => {
 // Initialize services
 initializeServices();
 
-// Exporting for testing
 module.exports = app;

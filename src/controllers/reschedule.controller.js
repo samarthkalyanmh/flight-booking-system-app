@@ -1,4 +1,4 @@
-const { rescheduleService } = require('../services/booking/reschedule.service');
+const rescheduleService = require('../services/booking/reschedule.service');
 const { formatSuccess, formatError } = require('../utils/responseFormatter');
 const AppError = require('../utils/AppError');
 
@@ -88,7 +88,6 @@ exports.cancelRescheduleRequest = async (req, res, next) => {
 };
 
 // Check for available seats for pending reschedule requests
-
 exports.checkPendingRescheduleRequests = async (req, res, next) => {
   try {
     const processedCount = await rescheduleService.checkPendingRescheduleRequests();
