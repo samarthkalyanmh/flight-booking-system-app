@@ -1,0 +1,599 @@
+{
+	"info": {
+		"_postman_id": "a6da58b4-e04b-409d-bec2-5c2b3247b307",
+		"name": "Flight-booking-system-backend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "42724336"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Register User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Venu R\",\n    \"email\": \"venur7831@gmail.com\",\n    \"password\": \"Password123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"samarthkalyanmh777@gmail.com\",\n    \"password\": \"Password123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Admin Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin@example.com\",\n    \"password\": \"admin123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Flights",
+			"item": [
+				{
+					"name": "Get All Flights",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/flights",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"flights"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Search Flights By source, dest, date",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/api/flights?source=Chitradurga&destination=Bangalore&airline=IndiGo",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"flights"
+							],
+							"query": [
+								{
+									"key": "source",
+									"value": "Chitradurga"
+								},
+								{
+									"key": "destination",
+									"value": "Bangalore"
+								},
+								{
+									"key": "airline",
+									"value": "IndiGo"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get flight by id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjMsImlhdCI6MTc0MzQ4MDM2MywiZXhwIjoxNzQ0MDg1MTYzfQ.grqFtxR2EN4ADiLTUpDbNzhth-kKhuXCKuxLkXZFktU"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/flights/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"flights",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create flight - Admin",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNzQzNTAxNzYzLCJleHAiOjE3NDQxMDY1NjN9.j3TLIdRNI3McPWuywCnZd33iTL-pYsRBOCJGsp6bARI"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"flightNumber\": \"FL007\",\n    \"airline\": \"IndiGo\",\n    \"source\": \"Kolkata\",\n    \"destination\": \"Hyderabad\",\n    \"departureDate\": \"2025-04-20T08:00:00.000Z\",\n    \"arrivalDate\": \"2025-04-20T10:30:00.000Z\",\n    \"totalSeats\": 180,\n    \"availableSeats\": 180,\n    \"price\": 4800.00,\n    \"status\": \"scheduled\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/flights",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"flights"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update flight - Admin",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNzQzNTAxNzYzLCJleHAiOjE3NDQxMDY1NjN9.j3TLIdRNI3McPWuywCnZd33iTL-pYsRBOCJGsp6bARI"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n        \"airline\": \"IndiGo\",\n        \"source\": \"Kolkata\",\n        \"destination\": \"Hyderabad\",\n        \"departureDate\": \"2025-04-20T08:00:00.000Z\",\n        \"arrivalDate\": \"2025-04-20T10:30:00.000Z\",\n        \"totalSeats\": 90,\n        \"availableSeats\": 180,\n        \"price\": 4800,\n        \"status\": \"scheduled\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/flights/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"flights",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete flight",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjMsImlhdCI6MTc0MzQ4MDM2MywiZXhwIjoxNzQ0MDg1MTYzfQ.grqFtxR2EN4ADiLTUpDbNzhth-kKhuXCKuxLkXZFktU"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/flights/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"flights",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Booking",
+			"item": [
+				{
+					"name": "Book flight",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNzQzNTAxNzYzLCJleHAiOjE3NDQxMDY1NjN9.j3TLIdRNI3McPWuywCnZd33iTL-pYsRBOCJGsp6bARI"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"flightId\": 1,\n    \"seatNumber\": \"WINDOW_SEAT2\",\n    \"passengerName\": \"Venu \",\n    \"passengerEmail\": \"venur7831@gmail.com\",\n    \"passengerPhone\": \"7899760759\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/bookings",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"bookings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get By id",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjMsImlhdCI6MTc0MzQ4MDM2MywiZXhwIjoxNzQ0MDg1MTYzfQ.grqFtxR2EN4ADiLTUpDbNzhth-kKhuXCKuxLkXZFktU"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/bookings/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"bookings",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel Booking",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNzQzNTAxNzYzLCJleHAiOjE3NDQxMDY1NjN9.j3TLIdRNI3McPWuywCnZd33iTL-pYsRBOCJGsp6bARI"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/bookings/9/cancel",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"bookings",
+								"9",
+								"cancel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All bookings",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjMsImlhdCI6MTc0MzQ4MDM2MywiZXhwIjoxNzQ0MDg1MTYzfQ.grqFtxR2EN4ADiLTUpDbNzhth-kKhuXCKuxLkXZFktU"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/bookings",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"bookings"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all bookings Admin",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MjMsImlhdCI6MTc0MzQ4MDM2MywiZXhwIjoxNzQ0MDg1MTYzfQ.grqFtxR2EN4ADiLTUpDbNzhth-kKhuXCKuxLkXZFktU"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/admin/bookings",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"admin",
+								"bookings"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Reschedule",
+			"item": [
+				{
+					"name": "Create reschedule request",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							},
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNzQzNTAxNzYzLCJleHAiOjE3NDQxMDY1NjN9.j3TLIdRNI3McPWuywCnZd33iTL-pYsRBOCJGsp6bARI"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"bookingId\": 7,\n    \"requestedFlightId\": 1,\n    \"requestedSeatNumber\": \"WINDOW_SEAT2\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/api/reschedule",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"reschedule"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get my reschedule requests",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer YOUR_JWT_TOKEN"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/reschedule",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"reschedule"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel reschedule request",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer YOUR_JWT_TOKEN"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/reschedule/1/cancel",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"reschedule",
+								"1",
+								"cancel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all reschedule requests - admin",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNzQzNTAxNzYzLCJleHAiOjE3NDQxMDY1NjN9.j3TLIdRNI3McPWuywCnZd33iTL-pYsRBOCJGsp6bARI"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/reschedule/admin",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"reschedule",
+								"admin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Check pending reschedule requests - admin",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNzQzNTAxNzYzLCJleHAiOjE3NDQxMDY1NjN9.j3TLIdRNI3McPWuywCnZd33iTL-pYsRBOCJGsp6bARI"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/api/reschedule/check-pending",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"api",
+								"reschedule",
+								"check-pending"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

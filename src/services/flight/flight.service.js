@@ -9,7 +9,6 @@ class FlightService {
 
   async getFlights(filters = {}) {
     // filters = {}
-    console.log('HEREEEEEEEEEEEE', filters)
     const { source, destination, date, airline } = filters;
     
     // Build filter object
